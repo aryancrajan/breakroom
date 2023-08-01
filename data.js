@@ -3,7 +3,7 @@ export const momentsData = [
         handle: `@Sharokn 💎`,
         profilePic: `assets/logo/logo.jpeg`,
         likes: 27,
-        retweets: 10,
+      //  retweets: 10,
         tweetText: `Wishing you a long life, good health and all the success possible! Happy birthday Sreejith😍😍`,
         replies: [],
         isLiked: false,
@@ -14,7 +14,7 @@ export const momentsData = [
         handle: `@Jerald ✅`,
         profilePic: `assets/logo/logo.jpeg`,
         likes: 6500,
-        retweets: 234,
+       // retweets: 234,
         tweetText: `We are happy to announce Mr.Aravind Sankar as the Head of Edstem Continuous Learning and Development(ECLD) department. Aravind, Congratulations and all the very best for your new role. We believe your expertise will bring the ECLD to new heights. `,
         replies: [
                   {

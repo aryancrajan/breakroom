@@ -6,34 +6,50 @@ tweetBtn.addEventListener('click', function(){
     console.log(tweetInput.value)
 })
 
+document.addEventListener('click', function(e){
+    if(e.target.dataset.like){
+       handleLikeClick(e.target.dataset.like) 
+    }
+})
+
+function handleLikeClick(momentId){ 
+    const targetMomentObj = momentsData.filter(function(moment){
+        return moment.uuid === momentId
+    })[0]
+    targetMomentObj.likes++
+    render()
+}
+
 function getFeedHtml(){
     let feedHtml = ``
-    momentsData.forEach(function(tweet){
+    momentsData.forEach(function(moment){
         feedHtml += `
 <div class="moment">
     <div class="moment-inner">
-         <img src="${tweet.profilePic}" class="profile-pic">
+         <img src="${moment.profilePic}" class="profile-pic">
         <div>
-            <p class="handle">${tweet.handle}</p>
-            <p class="moment-text">${tweet.tweetText}</p>
+            <p class="handle">${moment.handle}</p>
+            <p class="moment-text">${moment.tweetText}</p>
             <div class="moment-details">
                 <span class="moment-detail">
                     <i class="fa-regular fa-comment-dots"></i>
-                    ${tweet.replies.length}
+                    ${moment.replies.length}
                 </span>
                 <span class="moment-detail">
                     <i class="fa-solid fa-heart"></i>
-                    ${tweet.likes}
+                    ${moment.likes}
                 </span>
-                <span class="moment-detail">
-                    <i class="fa-solid fa-retweet"></i>
-                    ${tweet.retweets}
-                </span>
+                
             </div>   
         </div>            
     </div>
 </div>
 `
+
+{/* <span class="moment-detail">
+                    <i class="fa-solid fa-retweet"></i>
+                    ${moment.retweets}
+                </span> */}
    })
    return feedHtml 
 }
