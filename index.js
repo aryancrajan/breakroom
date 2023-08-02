@@ -1,23 +1,25 @@
 import { momentsData } from './data.js'
-const tweetInput = document.getElementById('moment-input')
-const tweetBtn = document.getElementById('celebrate-btn')
+const momentInput = document.getElementById('moment-input')
+const celebrateBtn = document.getElementById('celebrate-btn')
 
-tweetBtn.addEventListener('click', function(){
-    console.log(tweetInput.value)
-})
-
-document.addEventListener('click', function(e){
-    if(e.target.dataset.like){
-       handleLikeClick(e.target.dataset.like) 
+celebrateBtn.addEventListener('click', function(e){
+    if (e.target.dataset.size){
+        console.log(e.target.dataset.size)
     }
 })
 
-function handleLikeClick(momentId){ 
-    const targetMomentObj = momentsData.filter(function(moment){
-        return moment.uuid === momentId
-    })[0]
-    targetMomentObj.likes++
-    render()
+document.addEventListener('click', function(e){
+    if (e.target.dataset.likes)
+       handleLikeClick(e.target.dataset.likes)   
+})
+
+function handleLikeClick(momentId){
+   const targetMomentObj=momentsData.filter(function(moment){
+    return moment.uuid==momentId
+   })[0]
+   targetMomentObj.likes++
+   console.log(targetMomentObj)
+   render()
 }
 
 function getFeedHtml(){
@@ -36,7 +38,7 @@ function getFeedHtml(){
                     ${moment.replies.length}
                 </span>
                 <span class="moment-detail">
-                    <i class="fa-solid fa-heart"></i>
+                    <i class="fa-solid fa-heart" data-likes="${moment.uuid}"></i>
                     ${moment.likes}
                 </span>
                 
