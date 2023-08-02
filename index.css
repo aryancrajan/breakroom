@@ -78,14 +78,14 @@ button{
     display: flex;
     gap: 4px;
 }
-
-.liked{
-    color: red;
-}
-
 .fa-solid{
     color: #999;
 }
+.like{
+    color: red 
+}
+
+
 
 
 
