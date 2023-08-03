@@ -1,13 +1,15 @@
 import { momentsData } from './data.js'
 import { v4 as uuidv4 } from 'https://jspm.dev/uuid';
-const momentInput = document.getElementById('moment-input')
-// const celebrateBtn = document.getElementById('celebrate-btn')
+
 
 document.addEventListener('click', function(e){
     if (e.target.dataset.likes)
        handleLikeClick(e.target.dataset.likes)
-    else if(e.target.id === 'celebrate-btn'){
+    else if(e.target.id === 'celebrate-btn')
         handleCelebrateBtnClick()
+    else if(e.target.dataset.reply){
+        console.log('hai')
+        handleReplyClick(e.target.dataset.reply)
     }   
 })
 
@@ -17,61 +19,82 @@ function handleLikeClick(momentId){
    })[0]
    if(targetMomentObj.isLiked)
         targetMomentObj.likes--
-    else if(!targetMomentObj.isLiked)
+    else 
         targetMomentObj.likes++
     targetMomentObj.isLiked=!targetMomentObj.isLiked
-   console.log(targetMomentObj.likes)
    render()
 }
 
+function handleReplyClick(replyId){
+    document.getElementById(`replies-${replyId}`).classList.toggle('hidden')}
+
+
 function handleCelebrateBtnClick(){
+if(momentInput.value){
     momentsData.unshift({
         handle: `@Scrimba`,
         profilePic: 'assets/logo/logo.jpeg' ,
         likes: 0,
         retweets: 0,
-        tweetText: momentInput.value,
+        momentText: momentInput.value,
         replies: [],
         isLiked: false,
-        isRetweeted: false,
         uuid: uuidv4()
     })
     render()
+    momentInput.value=''
 }
+}
+
+
 
 function getFeedHtml(){
     let feedHtml = ``
-    momentsData.forEach(function(m){
+    momentsData.forEach(function(moment){
         let likeIconClass = ''
-        if(m.isLiked)
+        if(moment.isLiked)
             { likeIconClass='like'} 
+        let repliesHtml=''
+        if(moment.replies.length > 0){
+            moment.replies.forEach(function(reply){
+            repliesHtml+=`
+            <div class="moment-reply">
+            <div class="moment-inner">
+            <img src="${reply.profilePic}" class="profile-pic">
+             <div>
+             <p class="handle">${reply.handle}</p>
+             <p class="momentt-text">${reply.momentText}</p>
+         </div>
+            </div>
+            </div>
+                `
+             })
+            }
         feedHtml += `
 <div class="moment">
     <div class="moment-inner">
-         <img src="${m.profilePic}" class="profile-pic">
+         <img src="${moment.profilePic}" class="profile-pic">
         <div>
-            <p class="handle">${m.handle}</p>
-            <p class="moment-text">${m.tweetText}</p>
+            <p class="handle">${moment.handle}</p>
+            <p class="moment-text">${moment.momentText}</p>
             <div class="moment-details">
                 <span class="moment-detail">
-                    <i class="fa-regular fa-comment-dots"></i>
-                    ${m.replies.length}
+                    <i class="fa-regular fa-comment-dots" data-reply="${moment.uuid}"></i>
+                    ${moment.replies.length}
                 </span>
                 <span class="moment-detail">
-                    <i class="fa-solid fa-heart ${likeIconClass}" data-likes="${m.uuid}"></i>
-                    ${m.likes}
+                    <i class="fa-solid fa-heart ${likeIconClass}" data-likes="${moment.uuid}"></i>
+                    ${moment.likes}
                 </span>
                 
             </div>   
         </div>            
     </div>
+    <div class="hidden" id="replies-${moment.uuid}">
+    ${repliesHtml}
+</div> 
 </div>
 `
-
-{/* <span class="moment-detail">
-                    <i class="fa-solid fa-retweet"></i>
-                    ${moment.retweets}
-                </span> */}
    })
    return feedHtml 
 }

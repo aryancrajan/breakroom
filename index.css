@@ -81,15 +81,36 @@ button{
 .fa-solid{
     color: #999;
 }
+
 .like{
-    color: red 
+    color: red; 
 }
-
-
-
-
 
 i{
     font-size: 15px;
     cursor: pointer;
+}
+
+.moment-reply{
+    border-top: 1px solid lightgray;
+    padding: 20px 0 0 0px;
+    margin: 10px 0 10px 40px;
+    width: 80%;
+}
+
+.handle{
+    font-size: 12px;
+    font-weight: 500;
+    color: #555;
+    margin-top: 0;
+}
+
+.moment-text{
+    width: 207px;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.hidden{
+    display: none;
 }
