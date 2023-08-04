@@ -30,12 +30,12 @@ function handleReplyClick(replyId){
 
 
 function handleCelebrateBtnClick(){
+    const momentInput = document.getElementById('moment-input')
 if(momentInput.value){
     momentsData.unshift({
         handle: `@Scrimba`,
         profilePic: 'assets/logo/logo.jpeg' ,
         likes: 0,
-        retweets: 0,
         momentText: momentInput.value,
         replies: [],
         isLiked: false,
@@ -79,7 +79,7 @@ function getFeedHtml(){
             <p class="moment-text">${moment.momentText}</p>
             <div class="moment-details">
                 <span class="moment-detail">
-                    <i class="fa-regular fa-comment-dots data-reply="${moment.uuid}"></i>
+                    <i class="fa-regular fa-comment-dots" data-reply="${moment.uuid}"></i>
                     ${moment.replies.length}
                 </span>
                 <span class="moment-detail">
